@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 //var moment = require('moment-timezone');
 var Schema = mongoose.Schema;
 
+
+
+
 var employeeSchema = new Schema({
     "First Name": String,
     "Last Name": String,
@@ -40,27 +43,25 @@ exports.getEmployeeDetails = function (callback) {
 /*Delete Employee Details from mongoDB*/
 exports.deleteEmployeeDetails = function (idsToDelete, callback) {
     var objectids = [];
-    console.log("before ObjectIds" + typeof idsToDelete);
+   
     idsToDelete = idsToDelete.replace(/\[|\]/g, "")
     idsToDelete = idsToDelete.split(",");
-    console.log(idsToDelete);
+   
 
-    console.log("Validation before for loop ==" + mongoose.Types.ObjectId.isValid("57298b4b406c5c4a4bcfc34d"));
+   
     for (var i = 0; i < idsToDelete.length; i++) {
-
-        console.log(idsToDelete[i].toString());
-        console.log("Is id valid?? == " + mongoose.Types.ObjectId.isValid("57298b4b406c5c4a4bcfc34d"));
-        objectids.push(mongoose.Types.ObjectId("57298b4b406c5c4a4bcfc34d"));
+        
+        
+        var query ="{ \"_id\" : "+idsToDelete[i]+"}";
+        
+        Employee.findOneAndRemove(query,function(err,res){
+          
+        });
+        //console.log("Is id valid?? == " + mongoose.Types.ObjectId.isValid("57298b4b406c5c4a4bcfc34d"));
+        
     }
-    console.log("After ObjectIds");
-    console.log("Ids in mongoose ==" + objectids);
-    Employee.find({
-        _id: {
-            $in: objectids
-        }
-    }, function (err, res) {
-        console.log("err =" + err);
-        console.log(res);
-    });
+   
+   callback(null,"Success!!");
+    
     //mongoose.connection.db.command(command2, callback);
 }

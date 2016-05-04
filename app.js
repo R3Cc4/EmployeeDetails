@@ -4,18 +4,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var config = require('./public/javascripts/config'); // get our config file
+var app = express();
 var url = 'mongodb://admin:admin@ds013162.mlab.com:13162/employeedetails'
 
 //var url = 'mongodb://localhost:27017/test';
 
-mongoose.connect(url);
+mongoose.connect(config.database); // connect to database
+
 console.log("Connected to DB");
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
 
+app.set('superSecret', config.secret); // secret variable
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

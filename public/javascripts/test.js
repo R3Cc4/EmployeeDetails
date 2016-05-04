@@ -1,8 +1,8 @@
 var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.exporter']);
 
 app.controller('MainCtrl', [
-  '$scope', '$http', 'uiGridConstants',
-    function ($scope, $http, uiGridConstants) {
+  '$scope', '$http','$httpParamSerializer', 'uiGridConstants',
+    function ($scope, $http, $httpParamSerializer,uiGridConstants) {
 
         var paginationOptions = {
             sort: null
@@ -50,13 +50,17 @@ app.controller('MainCtrl', [
 
                             idsToDelete.push(selectedRows[i]._id);
                         }
-                        console.log(idsToDelete);
-                        /*angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
+                       
+                        angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
     $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
-});*/
+});
+                        var token = window.localStorage.getItem('token');
                         $http({
                             method: 'GET',
                             url: '/deleteEmployees',
+                             headers: {
+                             'x-access-token': token
+                                },
                             params: {
                                 id: JSON.stringify(idsToDelete) // ids is [1, 2, 3, 4]
                             }
@@ -111,12 +115,27 @@ app.controller('MainCtrl', [
             }
 
             var _scope = $scope;
-            return $http.get(url)
-                .success(function (data) {
-                    console.log(data.result);
+            
+
+            var authDetails={'name':'vamsikrishna123','password':'test123'}
+            return $http({
+ method: 'GET',
+ url: '/employees',
+ headers: {
+   'Content-Type': 'application/x-www-form-urlencoded'
+ },
+  params: {
+           auth: JSON.stringify(authDetails) // ids is [1, 2, 3, 4]
+                            }
+}).success(function (data) {
+                    console.log(data.employees);
+                    if(typeof data.result != undefined){
                     var firstRow = (curPage - 1) * pageSize;
                     $scope.gridOptions.totalItems = 50;
-                    $scope.gridOptions.data = data.result.slice(firstRow, firstRow + pageSize)
+                    $scope.gridOptions.data = data.employees.result.slice(firstRow, firstRow + pageSize)
+                    window.localStorage.setItem('token', data.token);
+                    console.log(window.localStorage.getItem('token'));
+                    }
                 });
         };
 
