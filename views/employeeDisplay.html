@@ -1,0 +1,99 @@
+<html ng-app="myApp">
+
+<head>
+    <title>Employee Display</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="../public/javascripts/ui-bootstrap-tpls-1.3.1.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="../employeeDetails.js"></script>
+    <script src="../public/javascripts/employeeDisplayAngular.js"></script>
+
+    <!--<link rel="stylesheet" type="text/css" href="/css/customStyle.css" />-->
+    <style>
+        /* Allow angular.js to be loaded in body, hiding cloaked elements until templates compile. The !important is important given that there may be other selectors that are more specific or come later and might alter display. */
+        
+        [ng\:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body data-ng-controller="myCtrl">
+
+    <div class="container-fluid" data-ng-cloak>
+        <div class="page-header">
+            <h1>Employee Details</h1>
+        </div>
+
+
+
+        <!--  <div class="btn-group" uib-dropdown dropdown-append-to-body>
+                    <button id="btn-append-to-to-body" type="button" class="btn btn-primary" ng-click="exportAll()" uib-dropdown-toggle>
+                        Export All Employees <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-to-body">
+                        <li role="menuitem"><a href="#">Export Selected Employees</a></li>
+                        <li role="menuitem"><a href="#">Export All Employees</a></li>
+                        <li role="menuitem"><a href="#">Print Selected Employees</a></li>
+                        <li role="menuitem"><a href="#">Print All Employees</a></li>
+                        <li class="divider"></li>
+                        <li role="menuitem"><a href="#">Delete Selected Employees</a></li>
+                    </ul>
+                </div>-->
+
+        <!-- <div align="right" data-ng-cloak data-ng-show="totalEmployees.length>pageSize">
+                    <uib-pagination ng-change="pageChanged()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" items-per-page="pageSize" boundary-link-numbers="true" rotate="false"></uib-pagination>
+                </div>
+-->
+        <!--
+                    <table class="table table-bordered table-hover table-condensed" data-ng-show="employees" data-ng-cloak>
+                        <thead>
+                            <tr class="info">
+                                <th>Select </th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Manager Name</th>
+                                <th>Date of Joining</th>
+                                <th>Work Experience(Years)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="employee in employees">
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="oneAtATime">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>{{employee["First Name"]}}</td>
+                                <td>{{employee["Last Name"]}}</td>
+                                <td>{{employee["Manager Name"]}}</td>
+                                <td>{{employee["Date Of Joining"]}}</td>
+                                <td>{{employee["Work Experience"]}}</td>
+                            </tr>
+                        </tbody>
+                    </table>-->
+        <div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div>
+
+        <!--<div align="right" data-ng-cloak data-ng-show="totalEmployees.length>pageSize">
+    <uib-pagination ng-change="pageChanged()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" items-per-page="pageSize" boundary-link-numbers="true" rotate="false"></uib-pagination>
+</div>-->
+
+    </div>
+
+</body>
+
+</html>

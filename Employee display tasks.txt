@@ -1,0 +1,22 @@
+Here is the instruction for  your sample code:
+
+
+1.            Use technologies Mongo, Express, AngularJS and Node Js.
+
+2.            Create a list of 50 employees, so while first time connecting to MongoDB, it will populate these records. ( Employee First Name, Last Name, Manager Name, Date Of Joining, Education, Work Experience)
+
+3.            Write REST API using nodejs (getAllEmployees()) and it should check for the authentication.
+
+4.            Display these 50 employees on the list page with pagination, 15 records each page with checkbox as first column. Use AngularJs.
+
+5.            User can select randomly employees and export to pdf.
+
+6.            User can select randomly employees and print the records.
+
+7.            Provide option to export and print all the records ( i.e. 50 records)
+
+8.            User can delete the selected record(s).
+
+9.            Make sure your code runs after download to the computer with only change in the monogodb connection url.
+
+10.          Share the github url.
