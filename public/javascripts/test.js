@@ -75,8 +75,13 @@ app.controller('MainCtrl', [
                     action: function ($event) {
                     $scope.printSelectedEmployees = $scope.gridApi.selection.getSelectedRows();   
                     console.log($scope.printSelectedEmployees);
-                     $scope.$apply(); 
+                     $scope.$apply(function(){
+                         
+                       
+                         
+                     }); 
                      window.print();
+                       $scope.priSelectedEmployees=[];
                     } ,
                     order:220
           
@@ -88,6 +93,7 @@ app.controller('MainCtrl', [
                     console.log($scope.totalEmployees);
                      $scope.$apply(); 
                      window.print();
+                      $scope.printSelectedEmployees=[];
                     } ,
                     order:230
           

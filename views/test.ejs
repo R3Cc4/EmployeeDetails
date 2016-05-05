@@ -21,8 +21,8 @@
     <div ng-controller="MainCtrl" >
         <div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter class="grid" print-remove></div>
     
-    <div >
-    <table  class="table table-bordered table-hover table-condensed" ng-model="printSelectedEmployees" print-table="printSelectedEmployees" print-section print-only>
+    <div print-section ng-show="printSelectedEmployees.length>0">
+    <table  class="table table-bordered table-hover table-condensed"  print-table="printSelectedEmployees"  print-only >
   <thead>
     <tr class="info">
       <td>First Name</td>
