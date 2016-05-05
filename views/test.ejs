@@ -2,6 +2,9 @@
 <html ng-app="app">
 
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
@@ -9,12 +12,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.20/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.1.1/ui-grid.js"></script>
     <link rel="stylesheet" href="/scripts/angular-ui-grid/ui-grid.css">
+   <link media="print" rel="stylesheet" href="/bowerscripts/angularPrint/angularPrint.css">
+    <script src="/bowerscripts/angularPrint/angularPrint.js"></script>
     <script src="/javascripts/test.js"></script>
 </head>
 
 <body>
-    <div ng-controller="MainCtrl">
-        <div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter class="grid"></div>
+    <div ng-controller="MainCtrl" >
+        <div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter class="grid" print-remove></div>
+    
+    <div >
+    <table  class="table table-bordered table-hover table-condensed" ng-model="printSelectedEmployees" print-table="printSelectedEmployees" print-section print-only>
+  <thead>
+    <tr class="info">
+      <td>First Name</td>
+      <td>Last Name</td>
+      <td>Manager Name</td>
+      <td>Date of Joining</td>
+      <td>Work Experience</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="employee in printSelectedEmployees">
+      <td>{{employee["First Name"]}}</td>
+      <td>{{employee["Last Name"]}}</td>
+      <td>{{employee["Manager Name"]}}</td>
+      <td>{{employee["Date Of Joining"]}}</td>
+      <td>{{employee["Work Experience"]}}</td>
+    </tr>
+  </tbody>
+</table>      
+        
+    </div>
     </div>
 </body>
 

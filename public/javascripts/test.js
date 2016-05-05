@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.exporter']);
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.grid.exporter','AngularPrint']);
 
 app.controller('MainCtrl', [
   '$scope', '$http','$httpParamSerializer', 'uiGridConstants',
@@ -70,6 +70,28 @@ app.controller('MainCtrl', [
                         //this.grid.element.toggleClass('rotated');
                     },
                     order: 210
+      },{
+         title: 'Print Selected Rows',
+                    action: function ($event) {
+                    $scope.printSelectedEmployees = $scope.gridApi.selection.getSelectedRows();   
+                    console.log($scope.printSelectedEmployees);
+                     $scope.$apply(); 
+                     window.print();
+                    } ,
+                    order:220
+          
+          
+      },{
+         title: 'Print All Rows',
+                    action: function ($event) {
+                    $scope.printSelectedEmployees = $scope.totalEmployees;   
+                    console.log($scope.totalEmployees);
+                     $scope.$apply(); 
+                     window.print();
+                    } ,
+                    order:230
+          
+          
       }
     ],
             exporterAllDataFn: function () {
@@ -101,18 +123,8 @@ app.controller('MainCtrl', [
         };
 
         var getPage = function (curPage, pageSize, sort) {
-            var url;
-            switch (sort) {
-            case uiGridConstants.ASC:
-                url = '/data/100_ASC.json';
-                break;
-            case uiGridConstants.DESC:
-                url = '/data/100_DESC.json';
-                break;
-            default:
-                url = '/employees';
-                break;
-            }
+            var url='/employees';
+            
 
             var _scope = $scope;
             
@@ -132,6 +144,7 @@ app.controller('MainCtrl', [
                     if(typeof data.result != undefined){
                     var firstRow = (curPage - 1) * pageSize;
                     $scope.gridOptions.totalItems = 50;
+                    $scope.totalEmployees=data.employees.result;
                     $scope.gridOptions.data = data.employees.result.slice(firstRow, firstRow + pageSize)
                     window.localStorage.setItem('token', data.token);
                     console.log(window.localStorage.getItem('token'));

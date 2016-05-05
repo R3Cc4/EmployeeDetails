@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 //var moment = require('moment-timezone');
 var Schema = mongoose.Schema;
+var empDetails= require("../../employeeDetails");
 
 
 
@@ -38,6 +39,28 @@ exports.getEmployeeDetails = function (callback) {
 
 
     mongoose.connection.db.command(command1, callback);
+}
+
+/* Set up Sample Data */
+
+exports.setupData=function(callback){
+    
+   
+    Employee.count({},function(err,c){
+       console.log("Count of Records =="+c);
+       if(c==0){
+            Employee.collection.insertMany(empDetails, function(err,r) {
+      /*assert.equal(null, err);
+      assert.equal(3, r.insertedCount);*/
+      console.log("Records Inserted!!");
+      //db.close();
+ })
+       } 
+    });
+   
+    
+    
+    
 }
 
 /*Delete Employee Details from mongoDB*/

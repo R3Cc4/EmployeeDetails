@@ -21,6 +21,9 @@ var auth = express.basicAuth(function(user, pass, callback) {
 apps.set("superSecret",config.secret);
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    results.setupData(function(err,response){
+        console.log("Data Set UP complete.");
+    });
     res.render('test');
 });
 router.get('/employees', function (req, res, next) {

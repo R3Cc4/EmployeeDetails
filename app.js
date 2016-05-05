@@ -24,7 +24,7 @@ app.set('superSecret', config.secret); // secret variable
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use('/scripts', express.static(__dirname + '/node_modules'));
-
+app.use('/bowerscripts', express.static(__dirname + '/bower_components'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
