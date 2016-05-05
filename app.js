@@ -4,7 +4,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./public/javascripts/config'); // get our config file
 var app = express();
 var url = 'mongodb://admin:admin@ds013162.mlab.com:13162/employeedetails'
