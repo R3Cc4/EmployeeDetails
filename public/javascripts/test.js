@@ -81,7 +81,7 @@ app.controller('MainCtrl', [
                          
                      }); 
                      window.print();
-                       $scope.priSelectedEmployees=[];
+                       $scope.printSelectedEmployees=[];
                     } ,
                     order:220
           
