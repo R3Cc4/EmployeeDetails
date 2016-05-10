@@ -20,12 +20,82 @@ var auth = express.basicAuth(function(user, pass, callback) {
 
 apps.set("superSecret",config.secret);
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/login', jwtauth,function (req, res, next) {
     results.setupData(function(err,response){
         console.log("Data Set UP complete.");
     });
     res.render('test');
 });
+
+router.get('/',function(req, res, next) {
+   
+   res.render('login');
+    
+});
+
+router.get('/loggedin',jwtauth,function(req, res, next) {
+   
+   res.redirect('/');
+    
+});
+
+
+router.get('/loginuser',function(req, res, next) {
+    console.log("in Login User =="+req.query.auth);
+    var reqparams=JSON.parse(req.query.auth);
+    var username = "\""+reqparams.name+"\"";
+    var userpassword=reqparams.password;
+   
+    var finduser = "{ name: \""+username+"\"}";
+    var query = User.find(finduser);
+    console.log("find Query =="+finduser)
+    User.findOne({'name':'asdfsdf'},function(err, user) {
+
+    console.log("User type from DB =="+ typeof user)
+    if (err) throw err;
+
+    if (!user) {
+      res.json({ success: false, message: 'Authentication failed. User not found.' });
+    } else if (typeof user !== undefined) {
+       
+        var userdetails=JSON.stringify(user);
+        var parsedDetails = JSON.parse(userdetails);
+        console.log("After parsing DB data =="+parsedDetails);
+        var dbPass = parsedDetails.pass;
+        
+        
+      // check if password matches
+      if (userpassword != userpassword) {
+        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+      } else {
+
+        // if user is found and password is right
+        // create a token
+       var expires = moment().add( 1,'days').valueOf();
+       var token = jwt.encode({
+                 iss: user.id,
+                 exp: expires
+              }, apps.get('superSecret'));
+              
+            
+        //console.log(employees);
+        res.json({
+  token : token,
+  expires: expires,
+  user: parsedDetails
+  
+});
+      
+      }
+        
+    }
+  });
+    
+   
+    
+});
+
+
 router.get('/employees', function (req, res, next) {
     console.log(req.query.auth);
     var reqparams=JSON.parse(req.query.auth);
@@ -82,9 +152,7 @@ router.get('/employees', function (req, res, next) {
     }
   });
     
-    
-  
-});
+ });
 
 router.get('/deleteEmployees',jwtauth, function (req, res, next) {
     console.log("Access Token=="+req.headers['x-access-token']);

@@ -119,9 +119,17 @@ a {
 }
 
 .table {
-    width: 600px;
+    width: 100%;
 }
 
 .grid {
-    width: 600px;
+    width: 100%;
+}
+.ui-grid-menu-button {
+    
+    color: blueviolet;    
+}
+.ui-grid-header-cell-wrapper{
+    background-color:  teal;
+    
 }

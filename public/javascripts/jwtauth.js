@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
         res.end('Access token has expired', 400);
         }
         User.findOne({ _id: decoded.iss }, function(err, user) {
-         console.log("Tjhis is in JW TOKEN and user is =="+user);
+         console.log("This is in JW TOKEN and user is =="+user);
   req.user = user;
   return next();
 });
